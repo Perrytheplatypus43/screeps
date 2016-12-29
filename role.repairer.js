@@ -1,4 +1,4 @@
-var roleRepairer = {
+let roleRepairer = {
 
     /** @param {Creep} creep **/
     run: function(creep) {
@@ -13,8 +13,8 @@ var roleRepairer = {
 	    }
 
 	    if(creep.memory.repairing) {
-            
-            var targets = creep.room.find(FIND_STRUCTURES, {
+
+            let targets = creep.room.find(FIND_STRUCTURES, {
                     filter: (structure) => {
                         return (structure.structureType == STRUCTURE_ROAD 
                         || structure.structureType == STRUCTURE_CONTAINER
@@ -29,7 +29,7 @@ var roleRepairer = {
             }
         }
         else {
-            var sources = creep.room.find(FIND_SOURCES);
+            let sources = creep.room.find(FIND_SOURCES);
             if(creep.harvest(sources[0]) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(sources[0]);
             }

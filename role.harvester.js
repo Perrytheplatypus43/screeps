@@ -1,6 +1,6 @@
-var roleBuilder = require('role.builder');
+let roleBuilder = require('role.builder');
 
-var roleHarvester = {
+let roleHarvester = {
 
     /** @param {Creep} creep **/
     run: function(creep) {
@@ -16,17 +16,17 @@ var roleHarvester = {
 	    }
 	    
 	    if (!creep.memory.building) {
-            var sources = creep.room.find(FIND_SOURCES);
+            let sources = creep.room.find(FIND_SOURCES);
+
+            let closestSource = sources[0];
+            let closestDist = 9999;
             
-            var closestSource = sources[0];
-            var closestDist = 9999;
-            
-            for (var i = 0; i < sources.length; i++)
+            for (let i = 0; i < sources.length; i++)
             {
-                var xDiff = creep.pos.x - sources[i].pos.x;
-                var yDiff = creep.pos.y - sources[i].pos.y;
-                
-                var dist = Math.abs(xDiff) + Math.abs(yDiff);
+                let xDiff = creep.pos.x - sources[i].pos.x;
+                let yDiff = creep.pos.y - sources[i].pos.y;
+
+                let dist = Math.abs(xDiff) + Math.abs(yDiff);
                 
                 if (dist < closestDist)
                 {
@@ -40,7 +40,7 @@ var roleHarvester = {
             }
         }
         else {
-            var targets = creep.room.find(FIND_STRUCTURES, {
+            let targets = creep.room.find(FIND_STRUCTURES, {
                     filter: (structure) => {
                         return (structure.structureType == STRUCTURE_EXTENSION ||
                                 structure.structureType == STRUCTURE_SPAWN ||

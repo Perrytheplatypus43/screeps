@@ -11,8 +11,16 @@ let build = {
 
         let buildSite = utils.findFirst(creep, FIND_CONSTRUCTION_SITES);
 
-        if (creep.build(buildSite) == ERR_NOT_IN_RANGE) {
-            creep.moveTo(buildSite);
+        if (buildSite)
+        {
+            if (creep.build(buildSite) == ERR_NOT_IN_RANGE) {
+                creep.moveTo(buildSite);
+            }
+        }
+        else
+        {
+            // Nothing to build, change role to repairer
+            creep.memory.role = 'repairer';
         }
     }
 };

@@ -3,6 +3,7 @@ let roleUpgrader = require('role.upgrader');
 let roleBuilder = require('role.builder');
 let roleRepairer = require('role.repairer');
 let roleCarrier = require('role.carrier');
+let roleDefender = require('role.defender');
 let populusManager = require('populusManager');
 
 module.exports.loop = function () {
@@ -15,6 +16,7 @@ module.exports.loop = function () {
     Memory.creepTypes.repairers = [];
     Memory.creepTypes.builders = [];
     Memory.creepTypes.carriers = [];
+    Memory.creepTypes.defenders = [];
 
     for(let name in Game.creeps) {
         let creep = Game.creeps[name];
@@ -37,6 +39,10 @@ module.exports.loop = function () {
         if(creep.memory.role == 'carrier') {
             roleCarrier.run(creep);
             Memory.creepTypes.carriers.push(creep);
+        }
+        if(creep.memory.role == 'defender') {
+            roleDefender.run(creep);
+            Memory.creepTypes.defenders.push(creep);
         }
     }
 };

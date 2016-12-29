@@ -35,7 +35,7 @@ let populusManager = {
         console.log('Builders: ' + builders.length);
 
         if (builders.length < 1) {
-            let newName = Game.spawns['SpawnerMcSpawnFace'].createCreep([WORK, WORK, CARRY, CARRY, MOVE, MOVE], undefined, {role: 'builder'});
+            let newName = Game.spawns['SpawnerMcSpawnFace'].createCreep(creepBody.BUILDER, undefined, {role: 'builder'});
             console.log('Spawning new builder: ' + newName);
         }
 

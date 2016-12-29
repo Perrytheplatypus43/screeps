@@ -1,4 +1,3 @@
-let roleBuilder = require('role.builder');
 let task = require('task.harvest');
 
 let roleHarvester = {

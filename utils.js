@@ -4,29 +4,38 @@
 
 let utils = {
 
+    findNearest: function(creep, thingToFind, filter)
+    {
+        let targets = creep.room.find(thingToFind);
 
-    findNearestEnergySource: function(creep) {
+        if (filter)
+        {
+            targets = _.filter(targets, filter);
+        }
 
-        let sources = creep.room.find(FIND_SOURCES);
-
-        let closestSource = sources[0];
+        let closestTarget = targets[0];
         let closestDist = 9999;
 
-        for (let i = 0; i < sources.length; i++)
+        for (let i = 0; i < targets.length; i++)
         {
-            let xDiff = creep.pos.x - sources[i].pos.x;
-            let yDiff = creep.pos.y - sources[i].pos.y;
+            let xDiff = creep.pos.x - targets[i].pos.x;
+            let yDiff = creep.pos.y - targets[i].pos.y;
 
             let dist = Math.abs(xDiff) + Math.abs(yDiff);
 
             if (dist < closestDist)
             {
                 closestDist = dist;
-                closestSource = sources[i];
+                closestTarget = targets[i];
             }
         }
 
-        return closestSource;
+        return closestTarget;
+    },
+
+    findFirst: function(creep, thingToFind)
+    {
+        return creep.room.find(thingToFind)[0];
     }
 };
 

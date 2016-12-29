@@ -9,7 +9,7 @@ let harvest = {
 
     harvest: function(creep) {
 
-        let closestSource = utils.findNearestEnergySource(creep);
+        let closestSource = utils.findNearest(creep, FIND_SOURCES);
 
         if (creep.harvest(closestSource) == ERR_NOT_IN_RANGE) {
             creep.moveTo(closestSource);

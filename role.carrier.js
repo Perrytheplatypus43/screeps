@@ -6,7 +6,7 @@ let carrier = {
 
     run: function(creep) {
 
-        if (creep.carry.energy < creep.carryCapacity)
+        if (creep.carry.energy == 0)
         {
             let targets = creep.room.find(FIND_DROPPED_RESOURCES);
 

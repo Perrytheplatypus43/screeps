@@ -4,7 +4,8 @@
 
 let bodies = {
 
-    HARVESTER: [MOVE, WORK, WORK, WORK, WORK, WORK]
+    HARVESTER: [MOVE, WORK, WORK, WORK, WORK, WORK],
+    CARRIER: [MOVE, MOVE, MOVE, CARRY, CARRY, CARRY]
 };
 
 module.exports = bodies;

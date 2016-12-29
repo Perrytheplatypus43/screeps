@@ -46,6 +46,14 @@ let populusManager = {
             let newName = Game.spawns['SpawnerMcSpawnFace'].createCreep(creepBody.HARVESTER, undefined, {role: 'harvester'});
             console.log('Spawning new harvester: ' + newName);
         }
+
+        let carriers = _.filter(Game.creeps, (creep) => creep.memory.role == 'carrier');
+        console.log('Carriers: ' + carriers.length);
+
+        if (carriers.length < 1) {
+            let newName = Game.spawns['SpawnerMcSpawnFace'].createCreep(creepBody.CARRIER, undefined, {role: 'carrier'});
+            console.log('Spawning new carrier: ' + newName);
+        }
     }
 };
 

@@ -9,10 +9,16 @@ let harvest = {
 
     harvest: function(creep) {
 
-        let closestSource = utils.findNearest(creep, FIND_SOURCES);
+        if (!creep.memory.harvestPointId)
+        {
+            let occupiedHarvestPoints = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester').map((el) => el.memory.harvestPointId);
+            let closestSource = utils.findNearest(creep, FIND_SOURCES, (source) => occupiedHarvestPoints.indexOf(source.id) == -1);
+            creep.memory.harvestPointId = closestSource.id;
+        }
 
-        if (creep.harvest(closestSource) == ERR_NOT_IN_RANGE) {
-            creep.moveTo(closestSource);
+        let source = Game.getObjectById(creep.memory.harvestPointId);
+        if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
+            creep.moveTo(source);
         }
     }
 };

@@ -9,33 +9,34 @@ module.exports.loop = function () {
 
     populusManager.run();
 
-    Memory.creeps.harvesters = [];
-    Memory.creeps.upgraders = [];
-    Memory.creeps.repairers = [];
-    Memory.creeps.builders = [];
-    Memory.creeps.carriers = [];
+    Memory.creepTypes = {};
+    Memory.creepTypes.harvesters = [];
+    Memory.creepTypes.upgraders = [];
+    Memory.creepTypes.repairers = [];
+    Memory.creepTypes.builders = [];
+    Memory.creepTypes.carriers = [];
 
     for(let name in Game.creeps) {
         let creep = Game.creeps[name];
         if(creep.memory.role == 'harvester') {
             roleHarvester.run(creep);
-            Memory.creeps.harvesters.push(creep);
+            Memory.creepTypes.harvesters.push(creep);
         }
         if(creep.memory.role == 'upgrader') {
             roleUpgrader.run(creep);
-            Memory.creeps.upgraders.push(creep);
+            Memory.creepTypes.upgraders.push(creep);
         }
         if(creep.memory.role == 'repairer') {
             roleRepairer.run(creep);
-            Memory.creeps.repairers.push(creep);
+            Memory.creepTypes.repairers.push(creep);
         }
         if(creep.memory.role == 'builder') {
             roleBuilder.run(creep);
-            Memory.creeps.builders.push(creep);
+            Memory.creepTypes.builders.push(creep);
         }
         if(creep.memory.role == 'carrier') {
             roleCarrier.run(creep);
-            Memory.creeps.carriers.push(creep);
+            Memory.creepTypes.carriers.push(creep);
         }
     }
 };

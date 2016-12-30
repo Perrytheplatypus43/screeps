@@ -8,13 +8,13 @@ let carrier = {
 
         if (creep.carry.energy == 0)
         {
-            let targets = creep.room.find(FIND_DROPPED_RESOURCES);
+            let target = creep.findClosestByRange(FIND_DROPPED_RESOURCES);
 
-            if (targets.length)
+            if (target)
             {
-                if (creep.pickup(targets[0]) == ERR_NOT_IN_RANGE)
+                if (creep.pickup(target) == ERR_NOT_IN_RANGE)
                 {
-                    creep.moveTo(targets[0]);
+                    creep.moveTo(target);
                 }
                 else
                 {

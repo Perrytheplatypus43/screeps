@@ -8,7 +8,7 @@ let carrier = {
 
         if (creep.carry.energy == 0)
         {
-            let target = creep.findClosestByRange(FIND_DROPPED_RESOURCES);
+            let target = creep.pos.findClosestByRange(FIND_DROPPED_RESOURCES);
 
             if (target)
             {

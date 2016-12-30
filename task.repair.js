@@ -27,6 +27,11 @@ let repair = {
             if(creep.repair(target) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(target);
             }
+
+            if (target.hits == target.hitsMax)
+            {
+                delete creep.memory.repairTarget;
+            }
         }
     }
 };

@@ -21,31 +21,31 @@ let populusManager = {
         let upgraders = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader');
 
         if (upgraders.length < 1) {
-            console.log('Spawning new upgrader: ' + Game.spawns['SpawnerMcSpawnFace'].createCreep(creepBody.UPGRADER, undefined, {role: 'upgrader'}));
+            console.log('Spawning new upgrader: ' + Game.spawns['spawn'].createCreep(creepBody.UPGRADER, undefined, {role: 'upgrader'}));
         }
 
         let repairers = _.filter(Game.creeps, (creep) => creep.memory.role == 'repairer');
 
         if (repairers.length < 1) {
-            console.log('Spawning new repairer: ' + Game.spawns['SpawnerMcSpawnFace'].createCreep(creepBody.REPAIRER, undefined, {role: 'repairer'}));
+            console.log('Spawning new repairer: ' + Game.spawns['spawn'].createCreep(creepBody.REPAIRER, undefined, {role: 'repairer'}));
         }
 
         let builders = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder');
 
         if (builders.length + repairers.length < 2) {
-            console.log('Spawning new builder: ' + Game.spawns['SpawnerMcSpawnFace'].createCreep(creepBody.BUILDER, undefined, {role: 'builder'}));
+            console.log('Spawning new builder: ' + Game.spawns['spawn'].createCreep(creepBody.BUILDER, undefined, {role: 'builder'}));
         }
 
         let carriers = _.filter(Game.creeps, (creep) => creep.memory.role == 'carrier');
 
         if (carriers.length < 1) {
-            console.log('Spawning new carrier: ' + Game.spawns['SpawnerMcSpawnFace'].createCreep(creepBody.CARRIER, undefined, {role: 'carrier'}));
+            console.log('Spawning new carrier: ' + Game.spawns['spawn'].createCreep(creepBody.CARRIER, undefined, {role: 'carrier'}));
         }
 
         let harvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester');
 
         if (harvesters.length < 1) {
-            console.log('Spawning new harvester: ' + Game.spawns['SpawnerMcSpawnFace'].createCreep(creepBody.HARVESTER, undefined, {role: 'harvester'}));
+            console.log('Spawning new harvester: ' + Game.spawns['spawn'].createCreep(creepBody.HARVESTER, undefined, {role: 'harvester'}));
         }
     }
 };

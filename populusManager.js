@@ -21,13 +21,13 @@ let populusManager = {
         let upgraders = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader');
 
         if (upgraders.length < 1) {
-            console.log('Spawning new upgrader: ' + Game.spawns['SpawnerMcSpawnFace'].createCreep([WORK, WORK, CARRY, CARRY, MOVE, MOVE], undefined, {role: 'upgrader'}));
+            console.log('Spawning new upgrader: ' + Game.spawns['SpawnerMcSpawnFace'].createCreep(creepBody.UPGRADER, undefined, {role: 'upgrader'}));
         }
 
         let repairers = _.filter(Game.creeps, (creep) => creep.memory.role == 'repairer');
 
         if (repairers.length < 1) {
-            console.log('Spawning new repairer: ' + Game.spawns['SpawnerMcSpawnFace'].createCreep([WORK, WORK, CARRY, CARRY, MOVE, MOVE], undefined, {role: 'repairer'}));
+            console.log('Spawning new repairer: ' + Game.spawns['SpawnerMcSpawnFace'].createCreep(creepBody.REPAIRER, undefined, {role: 'repairer'}));
         }
 
         let builders = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder');

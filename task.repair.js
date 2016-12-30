@@ -7,19 +7,25 @@ let repair = {
 
     repair: function(creep) {
 
-        let targets = creep.room.find(FIND_STRUCTURES, {
-            filter: (structure) => {
-                return (structure.structureType == STRUCTURE_ROAD
-                    || structure.structureType == STRUCTURE_CONTAINER
-                    || structure.structureType == STRUCTURE_WALL) && structure.hits < structure.hitsMax;
-            }
-        });
+        if (!creep.memory.repairTarget)
+        {
+            let targets = creep.room.find(FIND_STRUCTURES, {
+                filter: (structure) =>
+                {
+                    return (structure.structureType == STRUCTURE_ROAD
+                        || structure.structureType == STRUCTURE_CONTAINER
+                        || structure.structureType == STRUCTURE_WALL) && structure.hits < structure.hitsMax;
+                }
+            });
 
-        _.sortBy(targets, ['hits']);
-
-        if(targets.length > 0) {
-            if(creep.repair(targets[0]) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(targets[0]);
+            targets = _.sortBy(targets, 'hits');
+            creep.memory.repairTarget = targets[0].id;
+        }
+        else
+        {
+            let target = Game.getObjectById(creep.memory.repairTarget);
+            if(creep.repair(target) == ERR_NOT_IN_RANGE) {
+                creep.moveTo(target);
             }
         }
     }

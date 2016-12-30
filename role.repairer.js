@@ -10,6 +10,7 @@ let roleRepairer = {
 
         if (creep.carry.energy == 0)
         {
+            delete creep.memory.repairTarget;
             task.resupply(creep);
         }
         else

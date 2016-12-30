@@ -11,8 +11,9 @@ let harvest = {
 
         if (!creep.memory.harvestPointId)
         {
-            let occupiedHarvestPoints = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester').map((el) => el.memory.harvestPointId);
-            let closestSource = utils.findNearest(creep, FIND_SOURCES, (source) => occupiedHarvestPoints.indexOf(source.id) == -1);
+            //let occupiedHarvestPoints = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester').map((el) => el.memory.harvestPointId);
+            //let closestSource = utils.findNearest(creep, FIND_SOURCES, (source) => occupiedHarvestPoints.indexOf(source.id) == -1);
+            let closestSource = creep.pos.findClosestByRange(FIND_SOURCES);
             creep.memory.harvestPointId = closestSource.id;
         }
 

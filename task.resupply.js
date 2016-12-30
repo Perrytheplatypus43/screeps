@@ -20,7 +20,7 @@ let resupply = {
         }
         else
         {
-            energyStore = utils.findNearest(creep, FIND_DROPPED_ENERGY);
+            energyStore = utils.findNearest(creep, FIND_DROPPED_ENERGY, (source) => source.amount >= creep.carryCapacity);
             if (energyStore)
             {
                 if (creep.pickup(energyStore) == ERR_NOT_IN_RANGE)

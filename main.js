@@ -8,7 +8,7 @@ let populusManager = require('populusManager');
 
 module.exports.loop = function () {
 
-    //populusManager.run();
+    populusManager.run();
 
     Memory.creepTypes = {};
     Memory.creepTypes.harvesters = [];

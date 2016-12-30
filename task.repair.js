@@ -12,9 +12,9 @@ let repair = {
             let targets = creep.room.find(FIND_STRUCTURES, {
                 filter: (structure) =>
                 {
-                    return (structure.structureType == STRUCTURE_ROAD
-                        || structure.structureType == STRUCTURE_CONTAINER
-                        || structure.structureType == STRUCTURE_WALL) && structure.hits < structure.hitsMax;
+                    return ((structure.structureType == STRUCTURE_ROAD && structure.hits < 5000)
+                        || (structure.structureType == STRUCTURE_CONTAINER && structure.hits / structure.hitsMax < 0.9)
+                        || (structure.structureType == STRUCTURE_WALL && structure.hits / structure.hitsMax < 0.9));
                 }
             });
 

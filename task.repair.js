@@ -12,14 +12,18 @@ let repair = {
             let targets = creep.room.find(FIND_STRUCTURES, {
                 filter: (structure) =>
                 {
-                    return ((structure.structureType == STRUCTURE_ROAD && structure.hits < 5000)
-                        || (structure.structureType == STRUCTURE_CONTAINER && structure.hits / structure.hitsMax < 0.9)
-                        || (structure.structureType == STRUCTURE_WALL && structure.hits / structure.hitsMax < 0.9));
+                    return ((structure.structureType == STRUCTURE_ROAD && structure.hits / structure.hitsMax < 0.9)
+                    || (structure.structureType == STRUCTURE_CONTAINER && structure.hits / structure.hitsMax < 0.9)
+                    || (structure.structureType == STRUCTURE_WALL && structure.hits < 5000)
+                    || (structure.structureType == STRUCTURE_RAMPART && structure.hits / structure.hitsMax < 0.9));
                 }
             });
 
             targets = _.sortBy(targets, 'hits');
-            creep.memory.repairTarget = targets[0].id;
+            if (targets.length)
+            {
+                creep.memory.repairTarget = targets[0].id;
+            }
         }
         else
         {

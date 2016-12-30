@@ -47,6 +47,12 @@ let populusManager = {
         if (harvesters.length < 1) {
             console.log('Spawning new harvester: ' + Game.spawns['spawn'].createCreep(creepBody.HARVESTER, undefined, {role: 'harvester'}));
         }
+
+        let defenders = _.filter(Game.creeps, (creep) => creep.memory.role == 'defender');
+
+        if (defenders.length < 1) {
+            console.log('Spawning new defender: ' + Game.spawns['spawn'].createCreep(creepBody.DEFENDER, undefined, {role: 'defender'}));
+        }
     }
 };
 

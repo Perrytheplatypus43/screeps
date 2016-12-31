@@ -11,7 +11,7 @@ let defend = {
 
         if (creep.memory.archerSpot)
         {
-            creep.moveTo(creep.memory.archerSpot);
+            creep.moveTo(creep.memory.archerSpot.x, creep.memory.archerSpot.y);
 
             let target = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
             if (target) {

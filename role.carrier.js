@@ -52,6 +52,19 @@ let carrier = {
                 return
             }
 
+            let towers = creep.room.find(FIND_STRUCTURES, {filter: (structure) => {return structure.structureType == STRUCTURE_TOWER}});
+            towers = _.filter(towers, (t) => t.energy < t.energyCapacity);
+
+            if (towers.length)
+            {
+                target = towers[0];
+                if (creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE)
+                {
+                    creep.moveTo(target);
+                }
+                return
+            }
+
             let containers = creep.room.find(FIND_STRUCTURES, {filter: (structure) => {return structure.structureType == STRUCTURE_CONTAINER}});
             containers = _.filter(containers, (con) => con.store.energy < con.storeCapacity);
 

@@ -15,4 +15,4 @@ let roleTower = {
     }
 };
 
-module.exports = roleRepairer;
+module.exports = roleTower;

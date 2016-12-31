@@ -5,11 +5,11 @@
 let repair = {
 
 
-    repair: function(creep) {
+    repair: function(object) {
 
-        if (!creep.memory.repairTarget)
+        if (object.memory && !object.memory.repairTarget)
         {
-            let targets = creep.room.find(FIND_STRUCTURES, {
+            let targets = object.room.find(FIND_STRUCTURES, {
                 filter: (structure) =>
                 {
                     return ((structure.structureType == STRUCTURE_ROAD && structure.hits / structure.hitsMax < 0.9)
@@ -22,19 +22,19 @@ let repair = {
             targets = _.sortBy(targets, 'hits');
             if (targets.length)
             {
-                creep.memory.repairTarget = targets[0].id;
+                object.memory.repairTarget = targets[0].id;
             }
         }
         else
         {
-            let target = Game.getObjectById(creep.memory.repairTarget);
-            if(creep.repair(target) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(target);
+            let target = Game.getObjectById(object.memory.repairTarget);
+            if(object.repair(target) == ERR_NOT_IN_RANGE) {
+                object.moveTo(target);
             }
 
             if (target.hits == target.hitsMax)
             {
-                delete creep.memory.repairTarget;
+                delete object.memory.repairTarget;
             }
         }
     }

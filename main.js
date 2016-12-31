@@ -4,6 +4,7 @@ let roleBuilder = require('role.builder');
 let roleRepairer = require('role.repairer');
 let roleCarrier = require('role.carrier');
 let roleDefender = require('role.defender');
+let roleTower = require('role.tower');
 let populusManager = require('populusManager');
 
 module.exports.loop = function () {
@@ -44,5 +45,17 @@ module.exports.loop = function () {
             roleDefender.run(creep);
             Memory.creepTypes.defenders.push(creep);
         }
+    }
+
+    let towers = [];
+
+    for (let name in Game.rooms)
+    {
+        towers.push(Game.rooms[name].find(FIND_STRUCTURES, {filter: (s) => s.structureType == STRUCTURE_TOWER}));
+    }
+
+    for (let i = 0; i < towers.length; i++)
+    {
+        roleTower.run(towers[i]);
     }
 };

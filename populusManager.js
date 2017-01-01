@@ -20,7 +20,7 @@ let populusManager = {
 
         let upgraders = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader');
 
-        if (upgraders.length < 5) {
+        if (upgraders.length < 3) {
             console.log('Spawning new upgrader: ' + Game.spawns['spawn'].createCreep(creepBody.UPGRADER, undefined, {role: 'upgrader'}));
         }
 
@@ -32,7 +32,7 @@ let populusManager = {
 
         let builders = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder');
 
-        if (builders.length + repairers.length < 4) {
+        if (builders.length + repairers.length < 1) {
             console.log('Spawning new builder: ' + Game.spawns['spawn'].createCreep(creepBody.BUILDER, undefined, {role: 'builder'}));
         }
 

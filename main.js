@@ -47,15 +47,10 @@ module.exports.loop = function () {
         }
     }
 
-    let towers = [];
+    let towers = _.filter(Game.structures, (s) => s.structureType == STRUCTURE_TOWER);
 
-    for (let name in Game.rooms)
+    for (let tower of towers)
     {
-        towers.push(Game.rooms[name].find(FIND_STRUCTURES, {filter: (s) => s.structureType == STRUCTURE_TOWER}));
-    }
-
-    for (let i = 0; i < towers.length; i++)
-    {
-        roleTower.run(towers[i]);
+        roleTower.run(tower);
     }
 };

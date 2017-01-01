@@ -27,7 +27,7 @@ let repair = {
         }
         else
         {
-            let target = (object.memory && object.memory.repairTarget) ? Game.getObjectById(object.memory.repairTarget) : object.room.find(FIND_STRUCTURES, {filter: (s) => s.hits < s.hitsMax})[0];
+            let target = (object.memory && object.memory.repairTarget) ? Game.getObjectById(object.memory.repairTarget) : _.sortBy(object.room.find(FIND_STRUCTURES, {filter: (s) => s.hits < s.hitsMax}), 'hits')[0];
             
             if(object.repair(target) == ERR_NOT_IN_RANGE) {
                 object.moveTo(target);

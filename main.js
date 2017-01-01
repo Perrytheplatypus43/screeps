@@ -9,7 +9,23 @@ let populusManager = require('populusManager');
 
 module.exports.loop = function () {
 
-    populusManager.run();
+    /**
+     *  Make sure all rooms are having screep populations managed
+     */
+    for (let name in Game.rooms)
+    {
+        populusManager.run(Game.rooms[name]);
+    }
+
+    /**
+     * Remove lingering creeps from memory store, ready to repopulate
+     */
+    for (let name in Memory.creeps) {
+        if(!Game.creeps[name]) {
+            delete Memory.creeps[name];
+            console.log('Clearing non-existing creep memory:', name);
+        }
+    }
 
     Memory.creepTypes = {};
     Memory.creepTypes.harvesters = [];
@@ -19,34 +35,27 @@ module.exports.loop = function () {
     Memory.creepTypes.carriers = [];
     Memory.creepTypes.defenders = [];
 
-    for(let name in Game.creeps) {
+    const roles = {
+        harvester: roleHarvester,
+        upgrader: roleUpgrader,
+        repairer: roleRepairer,
+        builder: roleBuilder,
+        carrier: roleCarrier,
+        defender: roleDefender
+    };
+
+    /**
+     * Run roles on each creep and push creep types into appropriate memory locations for easy access through Memory tab
+     */
+    for (let name in Game.creeps) {
         let creep = Game.creeps[name];
-        if(creep.memory.role == 'harvester') {
-            roleHarvester.run(creep);
-            Memory.creepTypes.harvesters.push(creep);
-        }
-        if(creep.memory.role == 'upgrader') {
-            roleUpgrader.run(creep);
-            Memory.creepTypes.upgraders.push(creep);
-        }
-        if(creep.memory.role == 'repairer') {
-            roleRepairer.run(creep);
-            Memory.creepTypes.repairers.push(creep);
-        }
-        if(creep.memory.role == 'builder') {
-            roleBuilder.run(creep);
-            Memory.creepTypes.builders.push(creep);
-        }
-        if(creep.memory.role == 'carrier') {
-            roleCarrier.run(creep);
-            Memory.creepTypes.carriers.push(creep);
-        }
-        if(creep.memory.role == 'defender') {
-            roleDefender.run(creep);
-            Memory.creepTypes.defenders.push(creep);
-        }
+        roles[creep.memory.role].run(creep);
+        Memory.creepTypes[creep.memory.role + 's'].push(creep);
     }
 
+    /**
+     * Run Tower role on all towers
+     */
     let towers = _.filter(Game.structures, (s) => s.structureType == STRUCTURE_TOWER);
 
     for (let tower of towers)

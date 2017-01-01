@@ -2,56 +2,44 @@
  * Created by zmark_000 on 29/12/2016.
  */
 
-let creepBody = require('creepBody');
-let utils = require('utils');
+let creepDefs = require('creepDefs');
+
+
+const calculateMinCreepAmount = function(room, role) {
+
+    switch (role)
+    {
+        case 'BUILDER':
+            return room.find(FIND_MY_CONSTRUCTION_SITES).length > 0;
+            break;
+
+        case 'REPAIRER':
+            return room.find(FIND_STRUCTURES).length > 0;
+            break;
+    }
+};
 
 let populusManager = {
 
-    run: function() {
+    run: function(room) {
 
-        for(let name in Memory.creeps) {
-            if(!Game.creeps[name]) {
-                delete Memory.creeps[name];
-                console.log('Clearing non-existing creep memory:', name);
+        let creepLevel = Math.floor(room.find(FIND_STRUCTURES, (s) => s.structureType == STRUCTURE_EXTENSION).length / 5);
+        console.log(creepLevel);
+
+        for (let def in creepDefs[creepLevel])
+        {
+            let creepDef = creepDefs[creepLevel][def];
+            let role = def;
+
+            let creeps = room.find(FIND_MY_CREEPS, {filter: (c) => c.memory.role == role.toLowerCase()});
+
+            let creepTypeMin = creepDef.MIN || calculateMinCreepAmount(room);
+
+            if (creeps.length < creepTypeMin && room.energyAvailable >= creepDef.COST)
+            {
+                let spawn = room.find(FIND_STRUCTURES, {filter: (s) => s.structureType == STRUCTURE_SPAWN})[0];
+                spawn.createCreep(creepDef.BODY, undefined, {role: role.toLowerCase()})
             }
-        }
-
-        // TODO refactor this more, do it all in a loop
-
-        let upgraders = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader');
-
-        if (upgraders.length < 3) {
-            console.log('Spawning new upgrader: ' + Game.spawns['spawn'].createCreep(creepBody.UPGRADER, undefined, {role: 'upgrader'}));
-        }
-
-        let repairers = _.filter(Game.creeps, (creep) => creep.memory.role == 'repairer');
-
-        if (repairers.length < 1) {
-            console.log('Spawning new repairer: ' + Game.spawns['spawn'].createCreep(creepBody.REPAIRER, undefined, {role: 'repairer'}));
-        }
-
-        let builders = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder');
-
-        if (builders.length + repairers.length < 1) {
-            console.log('Spawning new builder: ' + Game.spawns['spawn'].createCreep(creepBody.BUILDER, undefined, {role: 'builder'}));
-        }
-
-        let carriers = _.filter(Game.creeps, (creep) => creep.memory.role == 'carrier');
-
-        if (carriers.length < 2) {
-            console.log('Spawning new carrier: ' + Game.spawns['spawn'].createCreep(creepBody.CARRIER, undefined, {role: 'carrier'}));
-        }
-
-        let harvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester');
-
-        if (harvesters.length < 1) {
-            console.log('Spawning new harvester: ' + Game.spawns['spawn'].createCreep(creepBody.HARVESTER, undefined, {role: 'harvester'}));
-        }
-
-        let defenders = _.filter(Game.creeps, (creep) => creep.memory.role == 'defender');
-
-        if (defenders.length < 1) {
-            console.log('Spawning new defender: ' + Game.spawns['spawn'].createCreep(creepBody.DEFENDER, undefined, {role: 'defender'}));
         }
     }
 };

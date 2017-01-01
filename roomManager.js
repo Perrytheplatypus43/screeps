@@ -9,12 +9,19 @@ const calculateMinCreepAmount = function(room, role) {
 
     switch (role)
     {
+        case 'CARRIER':
+            // Need a carrier if there are dropped resources or a container with energy in
+            return room.find(FIND_DROPPED_ENERGY).length > 0 || room.find(FIND_STRUCTURES, {filter: (s) => s.structureType == STRUCTURE_CONTAINER && s.energy > 0});
+            break;
+
         case 'BUILDER':
+            // Need builder if there's a construction site
             return room.find(FIND_MY_CONSTRUCTION_SITES).length > 0;
             break;
 
         case 'REPAIRER':
-            return room.find(FIND_STRUCTURES).length > 0;
+            // Need repairer if there's more than just the spawner and room controller
+            return room.find(FIND_MY_STRUCTURES).length > 2;
             break;
     }
 };
@@ -30,8 +37,10 @@ let roomManager = {
             let flag = flags[i];
             let structType = flag.name.replace(/CS_|\d/g, '').toLowerCase();
 
-            flag.pos.createConstructionSite(structType);
-            flag.remove();
+            if(flag.pos.createConstructionSite(structType) == 0)
+            {
+                flag.remove();
+            }
         }
 
         let creepLevel = Math.min(1, Math.floor(room.find(FIND_STRUCTURES, {filter: (s) => s.structureType == STRUCTURE_EXTENSION}).length / 5));
@@ -48,7 +57,12 @@ let roomManager = {
             if (creeps.length < creepTypeMin && room.energyAvailable >= creepDef.COST)
             {
                 let spawn = room.find(FIND_STRUCTURES, {filter: (s) => s.structureType == STRUCTURE_SPAWN})[0];
-                spawn.createCreep(creepDef.BODY, undefined, {role: role.toLowerCase()})
+                let name = spawn.createCreep(creepDef.BODY, undefined, {role: role.toLowerCase()});
+                if (typeof name == 'string')
+                {
+                    console.log(`Spawning ${role} ${name}`);
+                    return
+                }
             }
         }
     }

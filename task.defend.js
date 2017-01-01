@@ -11,7 +11,8 @@ let defend = {
 
         if (creep.memory.archerSpot)
         {
-            creep.moveTo(creep.memory.archerSpot.x, creep.memory.archerSpot.y);
+            let flag = Game.flags[creep.memory.archerSpot];
+            creep.moveTo(flag.pos.x, flag.pos.y);
 
             let target = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
             if (target) {
@@ -22,10 +23,9 @@ let defend = {
         else
         {
             let occupiedArcherSpots = _.filter(Game.creeps, (creep) => creep.memory.role == 'defender').map((el) => el.memory.archerSpot);
-            let closestFlag = creep.pos.findClosestByRange(FIND_FLAGS, (flag) => flag.name.includes("ArcherSpot") && occupiedArcherSpots.indexOf(flag.pos) == -1);
-            if (closestFlag) creep.memory.archerSpot = closestFlag.pos;
+            let closestFlag = creep.pos.findClosestByRange(FIND_FLAGS, {filter: (flag) => flag.name.includes("ArcherSpot") && occupiedArcherSpots.indexOf(flag.name) == -1});
+            if (closestFlag) creep.memory.archerSpot = closestFlag.name;
         }
-
 
     }
 };

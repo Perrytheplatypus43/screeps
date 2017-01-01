@@ -31,7 +31,7 @@ let defs = [
 
         CARRIER: {
             BODY: [MOVE, MOVE, MOVE, CARRY, CARRY, CARRY],
-            MIN: 1,
+            MIN: undefined,
             MAX: undefined, // 2 * Harvester count
             COST: 300
         },
@@ -72,7 +72,7 @@ let defs = [
 
         CARRIER: {
             BODY: [MOVE, MOVE, MOVE, CARRY, CARRY, CARRY],
-            MIN: 1,
+            MIN: undefined,
             MAX: undefined, // 2 * Harvester count
             COST: 300
         },

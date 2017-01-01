@@ -23,8 +23,7 @@ let populusManager = {
 
     run: function(room) {
 
-        let creepLevel = Math.floor(room.find(FIND_STRUCTURES, (s) => s.structureType == STRUCTURE_EXTENSION).length / 5);
-        console.log(creepLevel);
+        let creepLevel = Math.min(1, Math.floor(room.find(FIND_STRUCTURES, {filter: (s) => s.structureType == STRUCTURE_EXTENSION}).length / 5));
 
         for (let def in creepDefs[creepLevel])
         {

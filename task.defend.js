@@ -12,7 +12,10 @@ let defend = {
         if (creep.memory.archerSpot)
         {
             let flag = Game.flags[creep.memory.archerSpot];
-            creep.moveTo(flag.pos.x, flag.pos.y);
+            if (creep.moveTo(flag.pos.x, flag.pos.y, {noPathFinding: true}) == ERR_NOT_FOUND)
+            {
+                creep.moveTo(flag.pos.x, flag.pos.y);
+            }
 
             let target = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
             if (target) {

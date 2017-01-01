@@ -12,7 +12,10 @@ let upgrade = {
         if (roomController)
         {
             if (creep.upgradeController(roomController) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(roomController);
+                if (creep.moveTo(roomController, {noPathFinding: true}) == ERR_NOT_FOUND)
+                {
+                    creep.moveTo(roomController);
+                }
             }
         }
     }

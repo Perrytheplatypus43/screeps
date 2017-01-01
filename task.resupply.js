@@ -15,7 +15,10 @@ let resupply = {
         {
             if (creep.withdraw(energyStore, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE)
             {
-                creep.moveTo(energyStore);
+                if (creep.moveTo(energyStore, {noPathFinding: true}) == ERR_NOT_FOUND)
+                {
+                    creep.moveTo(energyStore);
+                }
             }
         }
         else
@@ -25,7 +28,10 @@ let resupply = {
             {
                 if (creep.pickup(energyStore) == ERR_NOT_IN_RANGE)
                 {
-                    creep.moveTo(energyStore);
+                    if (creep.moveTo(energyStore, {noPathFinding: true}) == ERR_NOT_FOUND)
+                    {
+                        creep.moveTo(energyStore);
+                    }
                 }
             }
         }

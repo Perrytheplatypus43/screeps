@@ -14,7 +14,10 @@ let carrier = {
             {
                 if (creep.pickup(target) == ERR_NOT_IN_RANGE)
                 {
-                    creep.moveTo(target);
+                    if (creep.moveTo(target, {noPathFinding: true}) == ERR_NOT_FOUND)
+                    {
+                        creep.moveTo(target);
+                    }
                 }
                 else
                 {
@@ -34,7 +37,10 @@ let carrier = {
                 target = spawner;
                 if (creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE)
                 {
-                    creep.moveTo(target);
+                    if (creep.moveTo(target, {noPathFinding: true}) == ERR_NOT_FOUND)
+                    {
+                        creep.moveTo(target);
+                    }
                 }
                 return
             }
@@ -47,7 +53,10 @@ let carrier = {
                 target = extensions[0];
                 if (creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE)
                 {
-                    creep.moveTo(target);
+                    if (creep.moveTo(target, {noPathFinding: true}) == ERR_NOT_FOUND)
+                    {
+                        creep.moveTo(target);
+                    }
                 }
                 return
             }
@@ -60,7 +69,10 @@ let carrier = {
                 target = towers[0];
                 if (creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE)
                 {
-                    creep.moveTo(target);
+                    if (creep.moveTo(target, {noPathFinding: true}) == ERR_NOT_FOUND)
+                    {
+                        creep.moveTo(target);
+                    }
                 }
                 return
             }
@@ -73,7 +85,10 @@ let carrier = {
                 target = containers[0];
                 if (creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE)
                 {
-                    creep.moveTo(target);
+                    if (creep.moveTo(target, {noPathFinding: true}) == ERR_NOT_FOUND)
+                    {
+                        creep.moveTo(target);
+                    }
                 }
                 return
             }

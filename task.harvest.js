@@ -17,7 +17,10 @@ let harvest = {
 
         let source = Game.getObjectById(creep.memory.harvestPointId);
         if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
-            creep.moveTo(source);
+            if (creep.moveTo(source, {noPathFinding: true}) == ERR_NOT_FOUND)
+            {
+                creep.moveTo(source);
+            }
         }
     }
 };

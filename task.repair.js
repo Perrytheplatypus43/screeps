@@ -34,7 +34,10 @@ let repair = {
             {
                 if (object.repair(target) == ERR_NOT_IN_RANGE)
                 {
-                    object.moveTo(target);
+                    if (object.moveTo(target, {noPathFinding: true}) == ERR_NOT_FOUND)
+                    {
+                        object.moveTo(target);
+                    }
                 }
 
                 if (target.hits == target.hitsMax)

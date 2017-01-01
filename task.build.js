@@ -14,7 +14,10 @@ let build = {
         if (buildSite)
         {
             if (creep.build(buildSite) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(buildSite);
+                if (creep.moveTo(buildSite, {noPathFinding: true}) == ERR_NOT_FOUND)
+                {
+                    creep.moveTo(buildSite);
+                }
             }
         }
         else

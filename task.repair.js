@@ -28,14 +28,19 @@ let repair = {
         else
         {
             let target = (object.memory && object.memory.repairTarget) ? Game.getObjectById(object.memory.repairTarget) : _.sortBy(object.room.find(FIND_STRUCTURES, {filter: (s) => s.hits < s.hitsMax}), 'hits')[0];
-            
-            if(object.repair(target) == ERR_NOT_IN_RANGE) {
-                object.moveTo(target);
-            }
+            if (target.structureType == STRUCTURE_WALL && target.hits > 50000) target = undefined;
 
-            if (target && target.hits == target.hitsMax)
+            if (target)
             {
-                delete object.memory.repairTarget;
+                if (object.repair(target) == ERR_NOT_IN_RANGE)
+                {
+                    object.moveTo(target);
+                }
+
+                if (target.hits == target.hitsMax)
+                {
+                    delete object.memory.repairTarget;
+                }
             }
         }
     }

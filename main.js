@@ -5,7 +5,7 @@ let roleRepairer = require('role.repairer');
 let roleCarrier = require('role.carrier');
 let roleDefender = require('role.defender');
 let roleTower = require('role.tower');
-let populusManager = require('populusManager');
+let roomManager = require('roomManager');
 
 module.exports.loop = function () {
 
@@ -14,7 +14,7 @@ module.exports.loop = function () {
      */
     for (let name in Game.rooms)
     {
-        populusManager.run(Game.rooms[name]);
+        roomManager.run(Game.rooms[name]);
     }
 
     /**

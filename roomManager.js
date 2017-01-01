@@ -19,9 +19,20 @@ const calculateMinCreepAmount = function(room, role) {
     }
 };
 
-let populusManager = {
+let roomManager = {
 
     run: function(room) {
+
+        let flags = room.find(FIND_FLAGS, {filter: (f) => f.name.includes('CS_')});
+
+        for (let i = 0; i < flags.length; i++)
+        {
+            let flag = flags[i];
+            let structType = flag.name.replace(/CS_|\d/g, '').toLowerCase();
+
+            flag.pos.createConstructionSite(structType);
+            flag.remove();
+        }
 
         let creepLevel = Math.min(1, Math.floor(room.find(FIND_STRUCTURES, {filter: (s) => s.structureType == STRUCTURE_EXTENSION}).length / 5));
 
@@ -32,7 +43,7 @@ let populusManager = {
 
             let creeps = room.find(FIND_MY_CREEPS, {filter: (c) => c.memory.role == role.toLowerCase()});
 
-            let creepTypeMin = creepDef.MIN || calculateMinCreepAmount(room);
+            let creepTypeMin = creepDef.MIN || calculateMinCreepAmount(room, role);
 
             if (creeps.length < creepTypeMin && room.energyAvailable >= creepDef.COST)
             {
@@ -43,4 +54,4 @@ let populusManager = {
     }
 };
 
-module.exports = populusManager;
+module.exports = roomManager;
